@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jesal Pande — Fall 2027 Engineering Admissions Timeline</title>
+<style>
+:root {
+  --bg: #0b0d10;
+  --bg-elevated: #111418;
+  --fg: #e8eaed;
+  --fg-muted: #8b919a;
+  --accent: #00d4aa;
+  --accent-dim: #00b894;
+  --warn: #ffb84d;
+  --danger: #ff6b6b;
+  --card: #161a1f;
+  --border: #2a2f36;
+  --focus: #00d4aa;
+  --radius: 10px;
+  --shadow: 0 4px 24px rgba(0,0,0,0.4);
+  --font: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--fg);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.container { max-width: 1100px; margin: 0 auto; padding: 24px 16px; }
+
+/* Hero */
+.hero {
+  background: linear-gradient(135deg, var(--bg-elevated) 0%, var(--card) 100%);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow);
+}
+.hero h1 { font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 700; margin-bottom: 8px; }
+.hero .subtitle { color: var(--fg-muted); font-size: 1.1rem; margin-bottom: 16px; }
+.hero .badges { display: flex; flex-wrap: wrap; gap: 8px; }
+.badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 12px; border-radius: 999px; font-size: 0.8rem; font-weight: 600;
+  background: var(--bg); border: 1px solid var(--border);
+}
+.badge.accent { border-color: var(--accent); color: var(--accent); }
+.badge.warn { border-color: var(--warn); color: var(--warn); }
+.badge.danger { border-color: var(--danger); color: var(--danger); }
+.badge.ok { border-color: #4ade80; color: #4ade80; }
+
+/* Sections */
+section { margin-bottom: 24px; }
+.section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+.section-header h2 { font-size: 1.4rem; font-weight: 600; }
+.section-header .count { color: var(--fg-muted); font-size: 0.9rem; }
+
+/* Cards */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: var(--shadow);
+  transition: border-color 0.2s, transform 0.2s;
+}
+.card:hover { border-color: var(--accent-dim); transform: translateY(-2px); }
+.card h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+.card h3::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+
+/* Timeline */
+.timeline { position: relative; padding-left: 24px; }
+.timeline::before {
+  content: ''; position: absolute; left: 7px; top: 0; bottom: 0;
+  width: 2px; background: linear-gradient(180deg, var(--accent), var(--border));
+}
+.timeline-item {
+  position: relative; padding-bottom: 28px;
+}
+.timeline-item:last-child { padding-bottom: 0; }
+.timeline-dot {
+  position: absolute; left: -24px; top: 4px;
+  width: 16px; height: 16px; border-radius: 50%;
+  background: var(--bg); border: 3px solid var(--accent);
+  box-shadow: 0 0 0 4px var(--bg);
+  z-index: 1;
+}
+.timeline-item.done .timeline-dot { background: var(--accent); border-color: var(--accent); }
+.timeline-item.current .timeline-dot { background: var(--warn); border-color: var(--warn); animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100% { box-shadow: 0 0 0 4px var(--bg), 0 0 0 6px var(--warn); } 50% { box-shadow: 0 0 0 4px var(--bg), 0 0 0 10px rgba(255,184,77,0.4); } }
+.timeline-date { font-size: 0.8rem; color: var(--fg-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+.timeline-title { font-weight: 600; font-size: 1rem; margin-bottom: 4px; }
+.timeline-desc { font-size: 0.85rem; color: var(--fg-muted); }
+
+/* Deadlines Board */
+.deadlines-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+.uni-card { position: relative; }
+.uni-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--uni-color); border-radius: var(--radius) var(--radius) 0 0; }
+.uni-card h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+.deadline-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 0.85rem; }
+.deadline-row:last-child { border-bottom: none; }
+.deadline-label { color: var(--fg-muted); }
+.deadline-value { font-weight: 600; white-space: nowrap; }
+.deadline-value.urgent { color: var(--danger); }
+.deadline-value.soon { color: var(--warn); }
+.deadline-value.ok { color: #4ade80; }
+
+/* DET Tracker */
+.det-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+.det-card { text-align: center; }
+.det-value { font-size: 2.5rem; font-weight: 700; color: var(--accent); line-height: 1.2; }
+.det-label { font-size: 0.8rem; color: var(--fg-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px; }
+.det-sub { font-size: 0.85rem; color: var(--fg-muted); margin-top: 8px; }
+.det-sub strong { color: var(--fg); }
+.progress-bar { height: 6px; background: var(--bg); border-radius: 3px; overflow: hidden; margin-top: 12px; }
+.progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent), #00ffcc); border-radius: 3px; transition: width 0.5s; }
+
+/* Budget */
+.budget-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--border); }
+.budget-row.total { border-bottom: none; font-weight: 700; font-size: 1.1rem; color: var(--accent); }
+.budget-label { color: var(--fg-muted); }
+.budget-value { font-weight: 600; }
+
+/* Checklist */
+.checklist { display: grid; gap: 8px; }
+.check-item { display: flex; align-items: center; gap: 12px; padding: 12px; background: var(--bg); border-radius: 8px; border: 1px solid var(--border); transition: all 0.2s; }
+.check-item:hover { border-color: var(--accent-dim); }
+.check-item.done { opacity: 0.6; background: rgba(0,212,170,0.05); border-color: var(--accent-dim); }
+.check-item.done .check-text { text-decoration: line-through; color: var(--fg-muted); }
+.check-input { width: 20px; height: 20px; accent-color: var(--accent); cursor: pointer; flex-shrink: 0; }
+.check-text { flex: 1; font-size: 0.9rem; }
+.check-date { font-size: 0.75rem; color: var(--fg-muted); white-space: nowrap; }
+
+/* Risks */
+.risk-item { display: flex; gap: 12px; padding: 12px; background: var(--bg); border-radius: 8px; border-left: 3px solid var(--warn); }
+.risk-item.high { border-left-color: var(--danger); }
+.risk-icon { font-size: 1.2rem; flex-shrink: 0; }
+.risk-text { flex: 1; font-size: 0.85rem; }
+.risk-text strong { color: var(--fg); }
+
+/* Copy Fields */
+.copy-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 12px; }
+.copy-field { display: flex; flex-direction: column; gap: 6px; }
+.copy-label { font-size: 0.75rem; color: var(--fg-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+.copy-value { background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 10px 12px; font-family: monospace; font-size: 0.85rem; color: var(--fg); position: relative; }
+.copy-btn { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--fg-muted); cursor: pointer; font-size: 0.75rem; padding: 4px 8px; border-radius: 4px; }
+.copy-btn:hover { color: var(--accent); background: rgba(0,212,170,0.1); }
+.copy-btn.copied { color: var(--accent); }
+
+/* Footer */
+.footer { text-align: center; padding: 24px; color: var(--fg-muted); font-size: 0.85rem; border-top: 1px solid var(--border); margin-top: 16px; }
+.footer a { margin: 0 8px; }
+
+/* Print */
+@media print {
+  .hero, .card { box-shadow: none; border-color: #ccc; }
+  .timeline::before { background: #ccc; }
+  .timeline-dot { box-shadow: 0 0 0 4px white; }
+  .copy-btn { display: none; }
+  body { background: white; color: black; }
+  .card, .hero { background: white; }
+  .badge { border-color: #ccc; color: #333; }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .container { padding: 16px 12px; }
+  .hero { padding: 24px 16px; }
+  .timeline { padding-left: 16px; }
+  .timeline-dot { left: -16px; width: 12px; height: 12px; }
+  .det-value { font-size: 2rem; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <!-- Hero -->
+  <header class="hero">
+    <h1>Jesal Pande — Fall 2027 Engineering Admissions</h1>
+    <p class="subtitle">Canadian citizen · CBSE India · Gap Year · XII 85.6% (PCM 86.7%) · X 89.8% · English Core 80</p>
+    <div class="badges">
+      <span class="badge accent">OUAC Group B (105D)</span>
+      <span class="badge warn">DET Retake Tonight 11:30 PM</span>
+      <span class="badge accent">7 OUAC Choices + UBC</span>
+      <span class="badge ok">Domestic Tuition</span>
+      <span class="badge">Budget ~$918 CAD</span>
+    </div>
+  </header>
+
+  <!-- Interactive Timeline -->
+  <section>
+    <div class="section-header">
+      <h2>Interactive Timeline</h2>
+      <span class="count">Sept 2026 → May 2027</span>
+    </div>
+    <div class="card">
+      <div class="timeline" id="timeline"></div>
+    </div>
+  </section>
+
+  <!-- Deadlines Board -->
+  <section>
+    <div class="section-header">
+      <h2>Deadlines by University</h2>
+      <span class="count">8 programs tracked</span>
+    </div>
+    <div class="deadlines-grid" id="deadlines"></div>
+  </section>
+
+  <!-- DET Tracker -->
+  <section>
+    <div class="section-header">
+      <h2>DET Tracker</h2>
+      <span class="count">Target: Overall 120+ · Literacy 125+ · Production 125+</span>
+    </div>
+    <div class="card">
+      <div class="det-grid" id="detTracker"></div>
+      <div style="margin-top: 16px; padding: 16px; background: var(--bg); border-radius: 8px; border: 1px solid var(--border); font-size: 0.85rem;">
+        <strong>Critical Rules (Updated Sept 15):</strong>
+        <ul style="margin: 8px 0 0 20px; color: var(--fg-muted);">
+          <li>NO 21-day cooldown — credit valid 21 days from purchase; max 3 purchases per 30 days (by purchase date)</li>
+          <li>3 attempts per credit; technical-error retake is FREE on remaining attempts</li>
+          <li>Check "My Tests" before booking — Sept 12 invalidation reason determines if tonight is attempt 2/3 of credit 1</li>
+          <li>Wired RJ45 only tonight; passport name must = OUAC name = DET name exactly</li>
+          <li>Send immediately on certification: 5 non-UofT schools Sept 17; UofT after applicant number (late Sept)</li>
+          <li>Re-send after better retakes; hard cutoff retake ~Nov 1-5 for Dec 1 matching</li>
+          <li>Waterloo requires Literacy ≥125 AND Production ≥125 (hardest); UofT Production ≥120; TMU/York overall only</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Budget Panel -->
+  <section>
+    <div class="section-header">
+      <h2>Budget</h2>
+      <span class="count">Updated with 2027 tentative fees</span>
+    </div>
+    <div class="card">
+      <div id="budget"></div>
+      <div style="margin-top: 12px; padding: 12px; background: rgba(255,184,77,0.1); border: 1px solid var(--warn); border-radius: 8px; font-size: 0.85rem;">
+        <strong>⚠ Budget Alert:</strong> Context.md had $480.32 — 2027 tentative fees show ~$918 for 6 Ontario choices (base $159 + $51×3 extra + doc eval fees UofT $96/Waterloo $90/Carleton $85/TMU $90 + program fees UofT Eng $67.32/Waterloo $60/McMaster $50). Verify total at payment Sept 17. UBC $78.50 separate. Non-Ontario Resident Tuition Fee at UofT unless parent has Ontario primary residence (exemption form at registrar.utoronto.ca).
+      </div>
+    </div>
+  </section>
+
+  <!-- Checklist Progress -->
+  <section>
+    <div class="section-header">
+      <h2>Checklist Progress</h2>
+      <span class="count" id="checkCount">0/0 complete</span>
+    </div>
+    <div class="card">
+      <div class="checklist" id="checklist"></div>
+    </div>
+  </section>
+
+  <!-- Risks Watchlist -->
+  <section>
+    <div class="section-header">
+      <h2>Risks & Orphan Watchlist</h2>
+      <span class="count">Critical items needing action</span>
+    </div>
+    <div class="card">
+      <div id="risks"></div>
+    </div>
+  </section>
+
+  <!-- Copy-Paste Fields -->
+  <section>
+    <div class="section-header">
+      <h2>Copy-Paste Portal Fields</h2>
+      <span class="count">Ready for OUAC / UBC / portals</span>
+    </div>
+    <div class="card">
+      <div class="copy-grid" id="copyFields"></div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    Data from all sessions · Last updated: <span id="lastUpdated"></span> ·
+    <a href="https://www.ouac.on.ca" target="_blank">OUAC</a> ·
+    <a href="https://you.ubc.ca" target="_blank">UBC</a> ·
+    <a href="https://future.utoronto.ca" target="_blank">UofT</a> ·
+    <a href="https://uwaterloo.ca" target="_blank">Waterloo</a> ·
+    <a href="https://future.mcmaster.ca" target="_blank">McMaster</a>
+  </footer>
+</div>
+
+<script>
+// ========== DATA ==========
+const timelineData = [
+  { date: "Tonight", label: "Sept 15, 11:30 PM", title: "DET Retake", desc: "Wired RJ45, passport only, name exactly as passport. Results ~48h.", class: "current" },
+  { date: "Sept 17", label: "Sept 17", title: "OUAC Day 1 Submit", desc: "7 choices, verify ~$918 total (not $480). Save OUAC reference #. Name = passport.", class: "" },
+  { date: "Sept 17-18", label: "Sept 17-18", title: "DET Results Certified", desc: "Check My Tests → if certified, send to Waterloo/Mac/Carleton/TMU/York immediately.", class: "" },
+  { date: "Late Sept", label: "Late Sept", title: "Applicant Numbers Arrive", desc: "Watch email for UofT/Waterloo/Mac/Carleton/TMU/York applicant numbers. Save each.", class: "" },
+  { date: "Late Sept", label: "Late Sept", title: "Send DET to UofT", desc: "Use applicant number in Application ID field. Send all 6 schools.", class: "" },
+  { date: "Oct 1-7", label: "Oct 1-7", title: "UBC Application", desc: "Submit Day 1 if portal live. $78.50 CAD. Way 6 waiver (English 80) — no DET needed.", class: "" },
+  { date: "Nov 7", label: "Nov 7", title: "UofT Early Consideration", desc: "OUAC must be submitted by this date (you'll be done Sept 17).", class: "" },
+  { date: "Nov 10", label: "Nov 10", title: "DET Re-send After Retakes", desc: "If retake Oct 6/Oct 27 improved scores, re-send to all 6. Free unlimited sends.", class: "" },
+  { date: "Dec 1", label: "Dec 1 ⚠ BINDING", title: "UofT OSP + All Docs Deadline", desc: "OSP complete + DET matched + CBSE uploads + all docs. Conservative: operate to Dec 1 not Dec 2.", class: "" },
+  { date: "Jan 15", label: "Jan 15", title: "OUAC Final Deadline", desc: "Last day to submit/modify OUAC choices.", class: "" },
+  { date: "Jan 28", label: "Jan 28, 23:59 ET", title: "McMaster Kira Deadline", desc: "3 video (1 prep/2 record) + 1 written (10 min), single sitting, no paste/redo.", class: "" },
+  { date: "Feb 1", label: "Feb 1, 23:59 ET", title: "Waterloo AIF + Video", desc: "4×150-word essays + 90-sec video + Alternate TRON. Engineering requires interview.", class: "" },
+  { date: "Feb 15", label: "Feb 15", title: "UBC ELAS / Extenuating", desc: "English Language Admission Standard docs. Extenuating circumstances if needed.", class: "" },
+  { date: "Mar 1", label: "Mar 1", title: "Carleton Prestige Scholarship", desc: "90%+ avg + ECs + signed reference → email ONE package to awards@carleton.ca.", class: "" },
+  { date: "Mar 31", label: "Mar 31", title: "UofT Residence (StarRez)", desc: "Interest + accept + deposits. Guarantee for all new first-time full-time students.", class: "" },
+  { date: "May 1", label: "May 1", title: "UofT Non-Ontario Response", desc: "Guaranteed response by April 30 for early consideration (Dec 1 complete).", class: "" },
+  { date: "Jun 1", label: "Jun 1", title: "UBC Residence / Carleton RAP", desc: "UBC May 1 accept + Jun 1 deposit. Carleton offer by May 31 + RAP by Jun 7 + $700.", class: "" },
+  { date: "Jun 8", label: "Jun 8", title: "Waterloo Residence", desc: "100% guarantee. Jun 8 + $500 deposit (2026 pattern).", class: "" },
+];
+
+const deadlinesData = [
+  { name: "UofT Mechanical (TM)", color: "#003366", deadlines: [
+    { label: "Early Consideration (OUAC)", value: "Nov 7", class: "ok" },
+    { label: "OSP + Docs + DET", value: "Dec 1", class: "urgent" },
+    { label: "Final OUAC", value: "Jan 15", class: "soon" },
+    { label: "Non-Ontario Response", value: "May 1", class: "ok" },
+  ]},
+  { name: "UofT Electrical (TE)", color: "#003366", deadlines: [
+    { label: "Early Consideration (OUAC)", value: "Nov 7", class: "ok" },
+    { label: "OSP + Docs + DET", value: "Dec 1", class: "urgent" },
+    { label: "Final OUAC", value: "Jan 15", class: "soon" },
+    { label: "Non-Ontario Response", value: "May 1", class: "ok" },
+  ]},
+  { name: "Waterloo Mech (WWH)", color: "#FFD700", deadlines: [
+    { label: "AIF + Video", value: "Feb 1", class: "urgent" },
+    { label: "DET (Lit 125+ Prod 125+)", value: "Send Sept 17", class: "ok" },
+    { label: "Engineering Interview", value: "After AIF", class: "soon" },
+    { label: "Residence", value: "Jun 8", class: "ok" },
+  ]},
+  { name: "McMaster Eng I (MEC)", color: "#8B0000", deadlines: [
+    { label: "Kira Assessment", value: "Jan 28", class: "urgent" },
+    { label: "DET (overall 120+)", value: "Send Sept 17", class: "ok" },
+    { label: "Special Consideration", value: "With Kira", class: "soon" },
+    { label: "Residence (gap year?)", value: "Jun 1", class: "soon" },
+  ]},
+  { name: "Carleton Mech (CED)", color: "#E31837", deadlines: [
+    { label: "Prestige Scholarship", value: "Mar 1", class: "urgent" },
+    { label: "DET (overall 120+)", value: "Send Sept 17", class: "ok" },
+    { label: "Conditional Reassess", value: "Aug 15", class: "soon" },
+    { label: "Residence RAP", value: "Jun 7", class: "ok" },
+  ]},
+  { name: "TMU Mech (SMW)", color: "#0066CC", deadlines: [
+    { label: "DET (overall 120+)", value: "Send Sept 17", class: "ok" },
+    { label: "No Subscore Minimums", value: "—", class: "ok" },
+    { label: "Residence", value: "Jun 4", class: "ok" },
+  ]},
+  { name: "York Eng (YT)", color: "#FF6600", deadlines: [
+    { label: "DET (overall 120+)", value: "Send Sept 17", class: "ok" },
+    { label: "Alternate Entry (sister)", value: "Dec 15", class: "soon" },
+    { label: "Residence", value: "TBA", class: "ok" },
+  ]},
+  { name: "UBC Engineering", color: "#002B5C", deadlines: [
+    { label: "Application", value: "Oct 1-7", class: "urgent" },
+    { label: "Personal Profile", value: "With app", class: "urgent" },
+    { label: "ELAS / Extenuating", value: "Feb 15", class: "soon" },
+    { label: "Conditional: 85%+ XII", value: "Final boards", class: "urgent" },
+    { label: "Residence", value: "May 1/Jun 1", class: "ok" },
+  ]},
+];
+
+const detData = {
+  targetOverall: 120,
+  targetLiteracy: 125,
+  targetProduction: 125,
+  currentOverall: null,
+  currentLiteracy: null,
+  currentConversation: null,
+  currentComprehension: null,
+  currentProduction: null,
+  testDate: "2026-09-15T23:30:00",
+  resultsExpected: "2026-09-17",
+  retakeEarliest: "2026-09-17", // if credit has attempts
+  retakeHardCutoff: "2026-11-05",
+  sendNonUofT: "2026-09-17",
+  sendUofT: "Late Sept",
+  universities: [
+    { name: "Waterloo", overall: 120, literacy: 125, production: 125, note: "Hardest — both subscores required" },
+    { name: "UofT", overall: 120, literacy: null, production: 120, note: "Production ≥120 + applicant #" },
+    { name: "McMaster", overall: 120, literacy: null, production: null, note: "Old subscores R115/W125/L110/S115" },
+    { name: "Carleton", overall: 120, literacy: null, production: null, note: "Old subscores W110/R110/S110/L105" },
+    { name: "TMU", overall: 120, literacy: null, production: null, note: "No subscore minimums" },
+    { name: "York", overall: 120, literacy: null, production: null, note: "Overall only" },
+  ]
+};
+
+const budgetData = [
+  { label: "OUAC Base (3 choices)", value: 159, currency: "CAD" },
+  { label: "OUAC Extra Choices (×3)", value: 153, currency: "CAD" },
+  { label: "Doc Eval: UofT", value: 96, currency: "CAD" },
+  { label: "Doc Eval: Waterloo", value: 90, currency: "CAD" },
+  { label: "Doc Eval: Carleton", value: 85, currency: "CAD" },
+  { label: "Doc Eval: TMU", value: 90, currency: "CAD" },
+  { label: "Program Fee: UofT Eng (Group B)", value: 67.32, currency: "CAD" },
+  { label: "Program Fee: Waterloo Eng", value: 60, currency: "CAD" },
+  { label: "Program Fee: McMaster Eng", value: 50, currency: "CAD" },
+  { label: "UBC Application", value: 78.50, currency: "CAD" },
+];
+
+const checklistData = [
+  { id: "det-test", text: "DET Retake Tonight (11:30 PM, wired RJ45)", date: "Sept 15", done: false },
+  { id: "det-results", text: "Check DET Results / My Tests", date: "Sept 17", done: false },
+  { id: "ouac-submit", text: "Submit OUAC (7 choices, verify ~$918)", date: "Sept 17", done: false },
+  { id: "ouac-ref", text: "Save OUAC Reference Number", date: "Sept 17", done: false },
+  { id: "det-send-5", text: "Send DET to 5 non-UofT Schools", date: "Sept 17-18", done: false },
+  { id: "applicant-nums", text: "Collect Applicant Numbers (6 schools)", date: "Late Sept", done: false },
+  { id: "det-send-uoft", text: "Send DET to UofT with Applicant #", date: "Late Sept", done: false },
+  { id: "ubc-submit", text: "Submit UBC Application + Profile", date: "Oct 1-7", done: false },
+  { id: "referee-emails", text: "Send Referee Requests (UBC 2 refs)", date: "ASAP", done: false },
+  { id: "uoft-osp", text: "Complete UofT OSP (Q2/Q3/Q4 + Optional)", date: "Nov 7", done: false },
+  { id: "waterloo-aif", text: "Complete Waterloo AIF + Video", date: "Feb 1", done: false },
+  { id: "mac-kira", text: "Complete McMaster Kira", date: "Jan 28", done: false },
+  { id: "carleton-schol", text: "Carleton Prestige Scholarship Package", date: "Mar 1", done: false },
+  { id: "cbse-uploads", text: "Upload CBSE Marks to All Portals", date: "Dec 1", done: false },
+  { id: "residence-uoft", text: "UofT StarRez Residence Application", date: "Mar 31", done: false },
+  { id: "residence-waterloo", text: "Waterloo Residence Deposit", date: "Jun 8", done: false },
+  { id: "osap", text: "File OSAP (after moving to Ontario)", date: "May 2027", done: false },
+];
+
+const risksData = [
+  { high: true, icon: "🔴", text: "<strong>UBC Conditional Offer:</strong> 85%+ final Standard XII board required. Jesal at 85.6% — <strong>0.6% margin</strong>. Any slip revokes offer." },
+  { high: true, icon: "🔴", text: "<strong>Name Mismatch:</strong> CBSE marksheet name must = passport = Canadian birth certificate = OUAC 105 name = DET account name. Mismatch = 3-5 day hold or unmatchable scores." },
+  { high: true, icon: "🔴", text: "<strong>OUAC Fee Surprise:</strong> Budget ~$918 not $480.32. Verify total at payment Sept 17. Family budget may be short ~$440." },
+  { high: true, icon: "🔴", text: "<strong>Non-Ontario Tuition Premium (UofT):</strong> Applies unless parent has Ontario primary residence (proof: NOA/lease/OHIP). Exemption form at registrar.utoronto.ca." },
+  { high: false, icon: "🟡", text: "<strong>Waterloo Subscore Mapping:</strong> Requires Literacy ≥125 AND Production ≥125. McMaster/Carleton cite old subscore names (pre-2023) — verify mapping with each uni." },
+  { high: false, icon: "🟡", text: "<strong>Schulich / TMU / National Scholarships:</strong> Likely ineligible — require graduating from Canadian high school 2026/2027. Get written confirmation before counting." },
+  { high: false, icon: "🟡", text: "<strong>Residence Guarantee (Gap Year):</strong> McMaster/Carleton guarantee wording for 'direct from high school' — gap year CBSE may not qualify. Email admissions." },
+  { high: false, icon: "🟡", text: "<strong>CBSE Verification:</strong> Universities verify via cbseresults.nic.in (free) or offline ₹500/doc via CBSE Regional Office. Confirm which each school requires." },
+  { high: false, icon: "🟡", text: "<strong>WES/ICAP:</strong> OUAC says universities MAY require. UofT/Waterloo don't mention for HS. Confirm McMaster/Carleton/TMU/York." },
+  { high: false, icon: "🟡", text: "<strong>DET Credit State:</strong> Sept 12 'upload issue' — if 'Possible Misconduct', credit expired → tonight needs NEW purchase (counts toward 3-in-30). Check My Tests first." },
+];
+
+const copyFieldsData = [
+  { label: "OUAC Reference #", value: "[Save after Sept 17 submit]" },
+  { label: "UofT Applicant Number", value: "[Arrives late Sept via email]" },
+  { label: "Waterloo Applicant Number", value: "[Arrives late Sept via email]" },
+  { label: "McMaster Applicant Number", value: "[Arrives late Sept via email]" },
+  { label: "Carleton Applicant Number", value: "[Arrives late Sept via email]" },
+  { label: "TMU Applicant Number", value: "[Arrives late Sept via email]" },
+  { label: "York Applicant Number", value: "[Arrives late Sept via email]" },
+  { label: "UBC Application Number", value: "[After Oct 1-7 submit]" },
+  { label: "DET Account Email", value: "[Your Duolingo test email]" },
+  { label: "Passport Number", value: "[Your Canadian passport #]" },
+  { label: "CBSE Roll Number", value: "[From Class XII admit card]" },
+  { label: "CBSE School Code", value: "[From marksheet]" },
+  { label: "Birth Certificate #", value: "[Canadian birth cert #]" },
+  { label: "Parent Ontario Address (if applicable)", value: "[For UofT tuition exemption]" },
+  { label: "Referee 1 Email (UBC)", value: "[Academic referee]" },
+  { label: "Referee 2 Email (UBC)", value: "[Character referee]" },
+];
+
+// ========== RENDER ==========
+function renderTimeline() {
+  const container = document.getElementById('timeline');
+  container.innerHTML = timelineData.map(item => `
+    <div class="timeline-item ${item.class}">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">${item.label}</div>
+      <div class="timeline-title">${item.title}</div>
+      <div class="timeline-desc">${item.desc}</div>
+    </div>
+  `).join('');
+}
+
+function renderDeadlines() {
+  const container = document.getElementById('deadlines');
+  container.innerHTML = deadlinesData.map(uni => `
+    <div class="card uni-card" style="--uni-color: ${uni.color};">
+      <h4>${uni.name}</h4>
+      ${uni.deadlines.map(d => `
+        <div class="deadline-row">
+          <span class="deadline-label">${d.label}</span>
+          <span class="deadline-value ${d.class}">${d.value}</span>
+        </div>
+      `).join('')}
+    </div>
+  `).join('');
+}
+
+function renderDET() {
+  const container = document.getElementById('detTracker');
+  const now = new Date();
+  const testDate = new Date(detData.testDate);
+  const resultsDate = new Date(detData.resultsExpected);
+  const daysToTest = Math.ceil((testDate - now) / (1000*60*60*24));
+  const daysToResults = Math.ceil((resultsDate - now) / (1000*60*60*24));
+  
+  let html = `
+    <div class="det-card">
+      <div class="det-value" id="detOverall">—</div>
+      <div class="det-label">Overall</div>
+      <div class="det-sub">Target: <strong>${detData.targetOverall}+</strong></div>
+      <div class="progress-bar"><div class="progress-fill" id="progOverall" style="width: 0%"></div></div>
+    </div>
+    <div class="det-card">
+      <div class="det-value" id="detLiteracy">—</div>
+      <div class="det-label">Literacy</div>
+      <div class="det-sub">Target: <strong>${detData.targetLiteracy}+</strong></div>
+      <div class="progress-bar"><div class="progress-fill" id="progLiteracy" style="width: 0%"></div></div>
+    </div>
+    <div class="det-card">
+      <div class="det-value" id="detProduction">—</div>
+      <div class="det-label">Production</div>
+      <div class="det-sub">Target: <strong>${detData.targetProduction}+</strong></div>
+      <div class="progress-bar"><div class="progress-fill" id="progProduction" style="width: 0%"></div></div>
+    </div>
+    <div class="det-card">
+      <div class="det-value">${daysToTest <= 0 ? 'Today' : daysToTest + 'd'}</div>
+      <div class="det-label">Test Tonight</div>
+      <div class="det-sub">${daysToTest <= 0 ? '<strong>11:30 PM</strong>' : '11:30 PM'}</div>
+    </div>
+    <div class="det-card">
+      <div class="det-value">${daysToResults}d</div>
+      <div class="det-label">Results In</div>
+      <div class="det-sub">~48 hours</div>
+    </div>
+  `;
+  
+  detData.universities.forEach(u => {
+    html += `
+      <div class="card" style="margin-top: 16px; text-align: left;">
+        <h4 style="margin-bottom: 8px; color: var(--accent);">${u.name}</h4>
+        <div style="font-size: 0.85rem; color: var(--fg-muted); display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 8px;">
+          ${u.overall ? `<div>Overall: <strong>${u.overall}+</strong></div>` : ''}
+          ${u.literacy ? `<div>Literacy: <strong>${u.literacy}+</strong></div>` : ''}
+          ${u.production ? `<div>Production: <strong>${u.production}+</strong></div>` : ''}
+          <div style="grid-column: 1/-1; color: var(--warn); font-size: 0.8rem;">${u.note}</div>
+        </div>
+      </div>
+    `;
+  });
+  
+  container.innerHTML = html;
+  
+  // Load saved DET scores from localStorage
+  loadDETScores();
+}
+
+function renderBudget() {
+  const container = document.getElementById('budget');
+  let total = 0;
+  let html = '';
+  budgetData.forEach(item => {
+    total += item.value;
+    html += `
+      <div class="budget-row">
+        <span class="budget-label">${item.label}</span>
+        <span class="budget-value">${item.value.toFixed(2)} ${item.currency}</span>
+      </div>
+    `;
+  });
+  html += `
+    <div class="budget-row total">
+      <span class="budget-label">Total (OUAC + UBC)</span>
+      <span class="budget-value">${total.toFixed(2)} CAD</span>
+    </div>
+    <div class="budget-row total" style="color: var(--warn);">
+      <span class="budget-label">≈ INR (×83.5)</span>
+      <span class="budget-value">₹${Math.round(total * 83.5).toLocaleString()}</span>
+    </div>
+  `;
+  container.innerHTML = html;
+}
+
+function renderChecklist() {
+  const container = document.getElementById('checklist');
+  const saved = JSON.parse(localStorage.getItem('jesalChecklist') || '{}');
+  let done = 0;
+  container.innerHTML = checklistData.map(item => {
+    const isDone = saved[item.id] === true;
+    if (isDone) done++;
+    return `
+      <div class="check-item ${isDone ? 'done' : ''}" data-id="${item.id}">
+        <input type="checkbox" class="check-input" ${isDone ? 'checked' : ''} onchange="toggleCheck('${item.id}', this.checked)">
+        <span class="check-text">${item.text}</span>
+        <span class="check-date">${item.date}</span>
+      </div>
+    `;
+  }).join('');
+  document.getElementById('checkCount').textContent = `${done}/${checklistData.length} complete`;
+}
+
+function renderRisks() {
+  const container = document.getElementById('risks');
+  container.innerHTML = risksData.map(r => `
+    <div class="risk-item ${r.high ? 'high' : ''}">
+      <span class="risk-icon">${r.icon}</span>
+      <div class="risk-text">${r.text}</div>
+    </div>
+  `).join('');
+}
+
+function renderCopyFields() {
+  const container = document.getElementById('copyFields');
+  container.innerHTML = copyFieldsData.map(f => `
+    <div class="copy-field">
+      <span class="copy-label">${f.label}</span>
+      <div class="copy-value" style="position: relative;">
+        ${f.value}
+        <button class="copy-btn" onclick="copyToClipboard(this, '${f.value.replace(/'/g, "\\'")}')">Copy</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleCheck(id, checked) {
+  const saved = JSON.parse(localStorage.getItem('jesalChecklist') || '{}');
+  saved[id] = checked;
+  localStorage.setItem('jesalChecklist', JSON.stringify(saved));
+  const item = document.querySelector(`[data-id="${id}"]`);
+  if (item) item.classList.toggle('done', checked);
+  const done = Object.values(saved).filter(v => v).length;
+  document.getElementById('checkCount').textContent = `${done}/${checklistData.length} complete`;
+}
+
+function copyToClipboard(btn, text) {
+  if (text.startsWith('[')) return; // placeholder
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+function loadDETScores() {
+  const saved = JSON.parse(localStorage.getItem('jesalDET') || '{}');
+  const fields = ['Overall', 'Literacy', 'Conversation', 'Comprehension', 'Production'];
+  fields.forEach(f => {
+    const key = f.toLowerCase();
+    const el = document.getElementById(`det${f}`);
+    const prog = document.getElementById(`prog${f}`);
+    if (el && saved[key] !== undefined) {
+      el.textContent = saved[key];
+      const target = detData[`target${f}`] || 120;
+      const pct = Math.min(100, (saved[key] / target) * 100);
+      if (prog) prog.style.width = `${pct}%`;
+    }
+  });
+}
+
+function saveDETScore(field, value) {
+  const saved = JSON.parse(localStorage.getItem('jesalDET') || '{}');
+  saved[field.toLowerCase()] = parseInt(value);
+  localStorage.setItem('jesalDET', JSON.stringify(saved));
+  loadDETScores();
+}
+
+// Make DET values editable on click
+document.addEventListener('click', e => {
+  if (e.target.classList.contains('det-value') && e.target.id.startsWith('det')) {
+    const field = e.target.id.replace('det', '');
+    const current = e.target.textContent;
+    if (current === '—') return;
+    const input = prompt(`Enter ${field} score (10-160):`, current);
+    if (input !== null && !isNaN(input)) {
+      saveDETScore(field, input);
+    }
+  }
+});
+
+// Last updated
+document.getElementById('lastUpdated').textContent = new Date().toLocaleDateString('en-CA', { year: 'numeric', month: 'short', day: 'numeric' });
+
+// Initial render
+renderTimeline();
+renderDeadlines();
+renderDET();
+renderBudget();
+renderChecklist();
+renderRisks();
+renderCopyFields();
+</script>
+</body>
+</html>
