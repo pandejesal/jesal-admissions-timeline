@@ -214,6 +214,48 @@ section { margin-bottom: 24px; }
     <div class="deadlines-grid" id="deadlines"></div>
   </section>
 
+  <!-- UofT Engineering Supplemental + OUAC Group B -->
+  <section>
+    <div class="section-header">
+      <h2>UofT Engineering Supplemental + OUAC Group B</h2>
+      <span class="count">SME-verified · discover.engineering.utoronto.ca · ouac.on.ca</span>
+    </div>
+    <div class="card">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px;">
+        <div>
+          <h4 style="font-size: 0.95rem; font-weight: 600; margin-bottom: 8px; color: var(--accent);">Supplemental Application (MANDATORY)</h4>
+          <ul style="margin: 0 0 0 20px; font-size: 0.85rem; color: var(--fg-muted);">
+            <li><strong style="color: var(--fg);">$67.32 fee</strong> · portal <a href="https://portal.engineering.utoronto.ca" target="_blank" rel="noopener">portal.engineering.utoronto.ca</a> via JOINid</li>
+            <li>Program Choice: rank 2–4 + PEY interest</li>
+            <li>Applicant Timeline (to June 2027) — explain gap year here</li>
+            <li>Test Scores + Academic Profile</li>
+            <li>Extracurriculars — non-family references</li>
+            <li>Personal Profile: Q1 terms · Q2 10-min prep → 300-word written · Q3 2-min prep → 2-min video · Q4 2-min prep → 3-min video</li>
+          </ul>
+        </div>
+        <div>
+          <h4 style="font-size: 0.95rem; font-weight: 600; margin-bottom: 8px; color: var(--accent);">OUAC Group B (legacy 105)</h4>
+          <ul style="margin: 0 0 0 20px; font-size: 0.85rem; color: var(--fg-muted);">
+            <li>No universal Group B deadline — follow UofT Eng Jan 15</li>
+            <li>Max <strong style="color: var(--fg);">3 choices per university</strong></li>
+            <li>2027 tentative: <strong style="color: var(--fg);">$159 base + $51/extra</strong> · no $10 intl fee for Canadian citizen</li>
+            <li>$67.32 supplemental is separate from OUAC fees</li>
+            <li>Transcripts sent directly to unis with OUAC ref — OUAC never forwards hard copy</li>
+            <li>UofT Eng: upload docs to Engineering Applicant Portal</li>
+          </ul>
+        </div>
+        <div>
+          <h4 style="font-size: 0.95rem; font-weight: 600; margin-bottom: 8px; color: var(--accent);">CBSE Notes</h4>
+          <ul style="margin: 0 0 0 20px; font-size: 0.85rem; color: var(--fg-muted);">
+            <li>Prereqs valid within 5 years (after Sept 2022)</li>
+            <li>Gap year explained in Applicant Timeline</li>
+            <li>English facility test likely required — IELTS 6.5, no band below 6.0</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- DET Tracker -->
   <section>
     <div class="section-header">
@@ -246,7 +288,7 @@ section { margin-bottom: 24px; }
     <div class="card">
       <div id="budget"></div>
       <div style="margin-top: 12px; padding: 12px; background: rgba(255,184,77,0.1); border: 1px solid var(--warn); border-radius: 8px; font-size: 0.85rem;">
-        <strong>⚠ Budget Alert:</strong> Context.md had $480.32 — 2027 tentative fees show ~$918 for 6 Ontario choices (base $159 + $51×3 extra + doc eval fees UofT $96/Waterloo $90/Carleton $85/TMU $90 + program fees UofT Eng $67.32/Waterloo $60/McMaster $50). Verify total at payment Sept 17. UBC $78.50 separate. Non-Ontario Resident Tuition Fee at UofT unless parent has Ontario primary residence (exemption form at registrar.utoronto.ca).
+        <strong>⚠ Budget Alert:</strong> Context.md had $480.32 — 2027 tentative fees show ~$918 for 6 Ontario choices (base $159 + $51×3 extra + doc eval fees UofT $96/Waterloo $90/Carleton $85/TMU $90 + program fees UofT Eng $67.32/Waterloo $60/McMaster $50). No $10 intl fee for Canadian citizen; $67.32 supplemental is separate from OUAC fees. Verify total at payment Sept 17. UBC $78.50 separate. Non-Ontario Resident Tuition Fee at UofT unless parent has Ontario primary residence (exemption form at registrar.utoronto.ca).
       </div>
     </div>
   </section>
@@ -303,15 +345,15 @@ const timelineData = [
   { date: "Late Sept", label: "Late Sept", title: "Applicant Numbers Arrive", desc: "Watch email for UofT/Waterloo/Mac/Carleton/TMU/York applicant numbers. Save each.", class: "" },
   { date: "Late Sept", label: "Late Sept", title: "Send DET to UofT", desc: "Use applicant number in Application ID field. Send all 6 schools.", class: "" },
   { date: "Oct 1-7", label: "Oct 1-7", title: "UBC Application", desc: "Submit Day 1 if portal live. $78.50 CAD. Way 6 waiver (English 80) — no DET needed.", class: "" },
-  { date: "Nov 7", label: "Nov 7", title: "UofT Early Consideration", desc: "OUAC must be submitted by this date (you'll be done Sept 17).", class: "" },
+  { date: "Nov 7", label: "Nov 7", title: "UofT Early Consideration (OUAC)", desc: "OUAC must be submitted by this date for early consideration (you'll be done Sept 17).", class: "" },
   { date: "Nov 10", label: "Nov 10", title: "DET Re-send After Retakes", desc: "If retake Oct 6/Oct 27 improved scores, re-send to all 6. Free unlimited sends.", class: "" },
-  { date: "Dec 1", label: "Dec 1 ⚠ BINDING", title: "UofT OSP + All Docs Deadline", desc: "OSP complete + DET matched + CBSE uploads + all docs. Conservative: operate to Dec 1 not Dec 2.", class: "" },
-  { date: "Jan 15", label: "Jan 15", title: "OUAC Final Deadline", desc: "Last day to submit/modify OUAC choices.", class: "" },
+  { date: "Dec 1", label: "Dec 1 (Early)", title: "UofT Supplemental + Docs — Early", desc: "Supplemental + docs by Dec 1 for early consideration → guaranteed response by Apr 30. Conservative: operate to Dec 1.", class: "" },
+  { date: "Jan 15", label: "Jan 15 (Regular)", title: "UofT Supplemental + Docs / OUAC Final", desc: "Final deadline for UofT supplemental + docs (regular) and OUAC choices. Feb 1 applies to other UofT programs, NOT Engineering.", class: "" },
   { date: "Jan 28", label: "Jan 28, 23:59 ET", title: "McMaster Kira Deadline", desc: "3 video (1 prep/2 record) + 1 written (10 min), single sitting, no paste/redo.", class: "" },
   { date: "Feb 1", label: "Feb 1, 23:59 ET", title: "Waterloo AIF + Video", desc: "4×150-word essays + 90-sec video + Alternate TRON. Engineering requires interview.", class: "" },
   { date: "Feb 15", label: "Feb 15", title: "UBC ELAS / Extenuating", desc: "English Language Admission Standard docs. Extenuating circumstances if needed.", class: "" },
   { date: "Mar 1", label: "Mar 1", title: "Carleton Prestige Scholarship", desc: "90%+ avg + ECs + signed reference → email ONE package to awards@carleton.ca.", class: "" },
-  { date: "Mar 31", label: "Mar 31", title: "UofT Residence (StarRez)", desc: "Interest + accept + deposits. Guarantee for all new first-time full-time students.", class: "" },
+  { date: "Mar 31", label: "Mar 31", title: "UofT Residence (Residence Portal)", desc: "Apply via Residence Portal by Mar 31 for guarantee.", class: "" },
   { date: "May 1", label: "May 1", title: "UofT Non-Ontario Response", desc: "Guaranteed response by April 30 for early consideration (Dec 1 complete).", class: "" },
   { date: "Jun 1", label: "Jun 1", title: "UBC Residence / Carleton RAP", desc: "UBC May 1 accept + Jun 1 deposit. Carleton offer by May 31 + RAP by Jun 7 + $700.", class: "" },
   { date: "Jun 8", label: "Jun 8", title: "Waterloo Residence", desc: "100% guarantee. Jun 8 + $500 deposit (2026 pattern).", class: "" },
@@ -320,15 +362,27 @@ const timelineData = [
 const deadlinesData = [
   { name: "UofT Mechanical (TM)", color: "#003366", deadlines: [
     { label: "Early Consideration (OUAC)", value: "Nov 7", class: "ok" },
-    { label: "OSP + Docs + DET", value: "Dec 1", class: "urgent" },
-    { label: "Final OUAC", value: "Jan 15", class: "soon" },
+    { label: "Supplemental + Docs (Early)", value: "Dec 1", class: "urgent" },
+    { label: "Supplemental + Docs (Regular)", value: "Jan 15", class: "soon" },
+    { label: "Supplemental Fee (portal)", value: '<a href="https://portal.engineering.utoronto.ca" target="_blank" rel="noopener">$67.32</a>', class: "ok" },
+    { label: "Personal Profile", value: "300w · 2m · 3m", class: "ok" },
+    { label: "OUAC Group B (max 3/uni)", value: "$159 + $51", class: "ok" },
+    { label: "Transcripts", value: "Direct to uni", class: "ok" },
+    { label: "Residence (Guarantee)", value: "Mar 31", class: "ok" },
     { label: "Non-Ontario Response", value: "May 1", class: "ok" },
+    { label: "Feb 1 (other UofT programs)", value: "Not Eng", class: "soon" },
   ]},
   { name: "UofT Electrical (TE)", color: "#003366", deadlines: [
     { label: "Early Consideration (OUAC)", value: "Nov 7", class: "ok" },
-    { label: "OSP + Docs + DET", value: "Dec 1", class: "urgent" },
-    { label: "Final OUAC", value: "Jan 15", class: "soon" },
+    { label: "Supplemental + Docs (Early)", value: "Dec 1", class: "urgent" },
+    { label: "Supplemental + Docs (Regular)", value: "Jan 15", class: "soon" },
+    { label: "Supplemental Fee (portal)", value: '<a href="https://portal.engineering.utoronto.ca" target="_blank" rel="noopener">$67.32</a>', class: "ok" },
+    { label: "Personal Profile", value: "300w · 2m · 3m", class: "ok" },
+    { label: "OUAC Group B (max 3/uni)", value: "$159 + $51", class: "ok" },
+    { label: "Transcripts", value: "Direct to uni", class: "ok" },
+    { label: "Residence (Guarantee)", value: "Mar 31", class: "ok" },
     { label: "Non-Ontario Response", value: "May 1", class: "ok" },
+    { label: "Feb 1 (other UofT programs)", value: "Not Eng", class: "soon" },
   ]},
   { name: "Waterloo Mech (WWH)", color: "#FFD700", deadlines: [
     { label: "AIF + Video", value: "Feb 1", class: "urgent" },
@@ -415,11 +469,11 @@ const checklistData = [
   { id: "det-send-uoft", text: "Send DET to UofT with Applicant #", date: "Late Sept", done: false },
   { id: "ubc-submit", text: "Submit UBC Application + Profile", date: "Oct 1-7", done: false },
   { id: "referee-emails", text: "Send Referee Requests (UBC 2 refs)", date: "ASAP", done: false },
-  { id: "uoft-osp", text: "Complete UofT OSP (Q2/Q3/Q4 + Optional)", date: "Nov 7", done: false },
+  { id: "uoft-osp", text: "Complete UofT Supplemental (Program Choice + Personal Profile Q1–Q4)", date: "Dec 1 / Jan 15", done: false },
   { id: "waterloo-aif", text: "Complete Waterloo AIF + Video", date: "Feb 1", done: false },
   { id: "mac-kira", text: "Complete McMaster Kira", date: "Jan 28", done: false },
   { id: "carleton-schol", text: "Carleton Prestige Scholarship Package", date: "Mar 1", done: false },
-  { id: "cbse-uploads", text: "Upload CBSE Marks to All Portals", date: "Dec 1", done: false },
+  { id: "cbse-uploads", text: "Upload CBSE Marks to All Portals (UofT: Eng Applicant Portal)", date: "Dec 1 / Jan 15", done: false },
   { id: "residence-uoft", text: "UofT StarRez Residence Application", date: "Mar 31", done: false },
   { id: "residence-waterloo", text: "Waterloo Residence Deposit", date: "Jun 8", done: false },
   { id: "osap", text: "File OSAP (after moving to Ontario)", date: "May 2027", done: false },
@@ -441,6 +495,7 @@ const risksData = [
 const copyFieldsData = [
   { label: "OUAC Reference #", value: "[Save after Sept 17 submit]" },
   { label: "UofT Applicant Number", value: "[Arrives late Sept via email]" },
+  { label: "UofT JOINid (Supplemental Portal)", value: "[Your JOINid for portal.engineering.utoronto.ca]" },
   { label: "Waterloo Applicant Number", value: "[Arrives late Sept via email]" },
   { label: "McMaster Applicant Number", value: "[Arrives late Sept via email]" },
   { label: "Carleton Applicant Number", value: "[Arrives late Sept via email]" },
